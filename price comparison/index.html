@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PriceScout - Compare Prices Across Multiple Platforms</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Header/Navigation -->
+  <header class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">PriceScout</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#popular-products">Popular Products</a></li>
+          <li><a href="#" id="login-button">Login</a></li>
+          <li><a href="#" class="btn-primary" id="register-button">Register</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-menu-icon">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Find the Best Deals Across <span>Multiple Shopping Platforms</span></h1>
+      <p>Compare prices from Amazon, Flipkart, eBay, Reliance Digital and more - all in one place.</p>
+      
+      <!-- Search Form -->
+      <div class="search-container">
+        <form id="search-form">
+          <div class="search-input">
+            <input type="text" id="search-query" placeholder="Search for products...">
+            <button type="submit" class="btn-primary">
+              <i class="fas fa-search"></i>
+              Compare Prices
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span>How It Works</span>
+        <h2>Find the best deals in 3 simple steps</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <h3>Search for a product</h3>
+          <p>Enter the name of the product you're looking for in the search bar.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <h3>Compare prices</h3>
+          <p>We'll show you prices from different online stores, highlighting the best deals.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+          <h3>Shop with confidence</h3>
+          <p>Choose the best offer and click through to the store to make your purchase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Products Section -->
+  <section class="popular-products" id="popular-products">
+    <div class="container">
+      <div class="section-header">
+        <span>Popular Products</span>
+        <h2>Trending items with the best deals</h2>
+        <p>See what other shoppers are comparing right now and find great savings.</p>
+      </div>
+
+      <div class="product-grid">
+        <a href="#" class="product-card" data-query="iPhone 14">
+          <div class="product-image">iPhone 14</div>
+          <div class="product-info">
+            <h3>iPhone 14</h3>
+            <p>Compare prices from multiple stores</p>
+          </div>
+        </a>
+
+        <a href="#" class="product-card" data-query="PlayStation 5">
+          <div class="product-image">PlayStation 5</div>
+          <div class="product-info">
+            <h3>PlayStation 5</h3>
+            <p>Compare prices from multiple stores</p>
+          </div>
+        </a>
+
+        <a href="#" class="product-card" data-query="Samsung TV">
+          <div class="product-image">Samsung TV</div>
+          <div class="product-info">
+            <h3>Samsung TV</h3>
+            <p>Compare prices from multiple stores</p>
+          </div>
+        </a>
+
+        <a href="#" class="product-card" data-query="Nike Air Max">
+          <div class="product-image">Nike Air Max</div>
+          <div class="product-info">
+            <h3>Nike Air Max</h3>
+            <p>Compare prices from multiple stores</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Results Section (Hidden by default) -->
+  <section class="search-results" id="search-results">
+    <div class="container">
+      <div class="results-header">
+        <div class="results-info">
+          <h2>Results for "<span id="search-term"></span>"</h2>
+          <p>Found <span id="result-count">0</span> results across <span id="platform-count">0</span> platforms</p>
+        </div>
+        <div class="results-actions">
+          <select id="sort-options">
+            <option value="price-asc">Sort by: Price (Low to High)</option>
+            <option value="price-desc">Sort by: Price (High to Low)</option>
+            <option value="rating">Sort by: Rating</option>
+          </select>
+          <button class="btn-outline" id="filter-button">
+            <i class="fas fa-filter"></i>
+            Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Price Summary Card -->
+      <div class="price-summary-card" id="price-summary-card">
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-label">Lowest Price</span>
+            <div class="summary-price">
+              <span id="lowest-price" class="price-low">$0.00</span>
+              <div class="platform-info">
+                on 
+                <div class="platform">
+                  <i id="lowest-platform-icon" class="fab fa-amazon"></i>
+                  <span id="lowest-platform"></span>
+                </div>
+              </div>
+            </div>
+            <span id="lowest-shipping" class="shipping-info">Free shipping</span>
+          </div>
+
+          <div class="summary-item">
+            <span class="summary-label">Average Price</span>
+            <div class="summary-price">
+              <span id="average-price" class="price-avg">$0.00</span>
+            </div>
+            <span class="platform-count">Across <span id="avg-platform-count">0</span> platforms</span>
+          </div>
+
+          <div class="summary-item">
+            <span class="summary-label">Highest Price</span>
+            <div class="summary-price">
+              <span id="highest-price" class="price-high">$0.00</span>
+              <div class="platform-info">
+                on 
+                <div class="platform">
+                  <i id="highest-platform-icon" class="fab fa-amazon"></i>
+                  <span id="highest-platform"></span>
+                </div>
+              </div>
+            </div>
+            <span id="highest-shipping" class="shipping-info">+ $0.00 shipping</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div id="results-container"></div>
+
+      <div id="load-more" class="load-more">
+        <button class="btn-outline">Load More Results</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authentication Modal -->
+  <div class="auth-modal" id="auth-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Login</button>
+        <button class="auth-tab" data-tab="register">Register</button>
+      </div>
+      
+      <div class="tab-content" id="login-tab">
+        <h2>Sign in to your account</h2>
+        <p>Enter your credentials below to login to your account</p>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+          </div>
+          <div class="form-row">
+            <div class="form-check">
+              <input type="checkbox" id="remember-me">
+              <label for="remember-me">Remember me</label>
+            </div>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn-primary">Sign in</button>
+        </form>
+      </div>
+      
+      <div class="tab-content" id="register-tab" style="display: none;">
+        <h2>Create an account</h2>
+        <p>Fill in the form below to create your account</p>
+        <form id="register-form">
+          <div class="form-group">
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" required>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+          </div>
+          <button type="submit" class="btn-primary">Create account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty Results State (Hidden by default) -->
+  <section class="empty-results" id="empty-results" style="display: none;">
+    <div class="container">
+      <div class="empty-state">
+        <i class="fas fa-circle-exclamation"></i>
+        <h3>No products found</h3>
+        <p>Try a different search term or check your spelling.</p>
+        <button class="btn-primary" id="clear-search">Clear Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loading State (Hidden by default) -->
+  <section class="loading-state" id="loading-state" style="display: none;">
+    <div class="container">
+      <div class="loader-container">
+        <div class="loader"></div>
+        <p>Searching across platforms for the best prices...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <nav class="footer-nav">
+        <a href="#">About</a>
+        <a href="#">How It Works</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact</a>
+      </nav>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p class="copyright">&copy; <span id="current-year"></span> PriceScout. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Price Card Template (Hidden) -->
+  <template id="price-card-template">
+    <div class="price-card">
+      <div class="price-card-header">
+        <div class="product-details">
+          <h3 class="product-title"></h3>
+          <div class="product-rating">
+            <div class="stars"></div>
+            <span class="review-count"></span>
+          </div>
+        </div>
+      </div>
+      <div class="price-card-body">
+        <div class="prices-list"></div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Price Item Template (Hidden) -->
+  <template id="price-item-template">
+    <div class="price-item">
+      <div class="platform-badge">
+        <i class="platform-icon"></i>
+        <span class="platform-name"></span>
+      </div>
+      <div class="price-details">
+        <span class="price-value"></span>
+        <span class="shipping-info"></span>
+      </div>
+      <a href="#" class="btn-outline btn-visit">Visit Store</a>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
